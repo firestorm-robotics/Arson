@@ -6,6 +6,7 @@ import fireLib.stateControl.*;
 
 public abstract class StateSubsystem<T extends State> implements ISubsystem {
     protected HashMap<String, T> mStates = new HashMap<String, T>();
+    protected T mDesiredState;
     protected T mCurrentState;
 
     /**
@@ -15,7 +16,7 @@ public abstract class StateSubsystem<T extends State> implements ISubsystem {
      */
     protected synchronized void setState(String key) {
         if (mStates.size() > 0) {
-            mCurrentState = mStates.get(key);
+            mDesiredState = mStates.get(key);
         }
     }
 

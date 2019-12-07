@@ -7,8 +7,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
+import java.util.Arrays;
 
+import edu.wpi.first.wpilibj.TimedRobot;
+import fireLib.looper.*;
+import frc.Subsystem.Arm;
+import frc.Subsystem.SuperStructure;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -17,36 +21,43 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
-  /**
-   * This function is run when the robot is first started up and should be used
-   * for any initialization code.
-   */
-  @Override
-  public void robotInit() {
-  }
+  private Looper mEnabledLooper = new Looper();
+  private Looper mDisabledLooper = new Looper();
+  private final SubsystemManager mSubsystemManager = new SubsystemManager(Arrays.asList(Arm.getInstance(), SuperStructure.getInstance()));
+ @Override
+ public void robotInit() {
+   mSubsystemManager.registerEnabledLoops(mEnabledLooper);
+   mSubsystemManager.registerDisabledLoops(mDisabledLooper);
+ }
 
-  @Override
-  public void autonomousInit() {
-  }
+ @Override
+ public void disabledPeriodic() {
+   mEnabledLooper.stop();
+   mDisabledLooper.start();
+ }
+ @Override
+ public void autonomousInit() {
+ }
 
-  @Override
-  public void autonomousPeriodic() {
-  }
+ @Override
+ public void autonomousPeriodic() {
+ }
 
-  @Override
-  public void teleopInit() {
-  }
+ @Override
+ public void teleopInit() {
+   mEnabledLooper.start();
+ }
 
-  @Override
-  public void teleopPeriodic() {
-  }
+ @Override
+ public void teleopPeriodic() {
+ }
 
-  @Override
-  public void testInit() {
-  }
+ @Override
+ public void testInit() {
+ }
 
-  @Override
-  public void testPeriodic() {
-  }
+ @Override
+ public void testPeriodic() {
+ }
 
 }
