@@ -1,9 +1,11 @@
 package fireLib.actions;
 
-public interface IAction 
-{
+public interface IAction {
     public void init();
+
     public void run();
+
     public void stop();
+
     public boolean isFinished();
 }

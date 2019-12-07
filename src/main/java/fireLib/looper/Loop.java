@@ -1,7 +1,6 @@
 package fireLib.looper;
 
-public interface Loop
-{
+public interface Loop {
 
     public void onStart(double timestamp);
 
