@@ -9,7 +9,6 @@ import fireLib.looper.ILooper;
 import fireLib.looper.Loop;
 import fireLib.subsystem.TalonServoSubsystem;
 import frc.robot.*;
-
 public class Arm extends TalonServoSubsystem {
 
     private TalonSRX mSlaveMotor;
