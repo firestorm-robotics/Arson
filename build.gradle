@@ -57,6 +57,12 @@ dependencies {
     testCompile "org.mockito:mockito-core:2.+"
 }
 
+test {
+    useJUnit()
+    classpath = project.sourceSets.test.runtimeClasspath + files("${projectDir}/test")
+
+}
+
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
 // knows where to look for our Robot Class.
