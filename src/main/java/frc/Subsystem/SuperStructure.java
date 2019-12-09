@@ -17,13 +17,14 @@ import frc.states.SuperStructureStates.SuperStructureState;
 
 public class SuperStructure extends StateSubsystem<SuperStructureState> {
 
-    private Arm mArm = Arm.getInstance();
+    private Arm mArm;
     private static SuperStructure mInstance;
     private PeriodicIO mPeriodicIO = new PeriodicIO();
     private boolean mArmAtPosition = false;
     private boolean mWriteAtPosition = false;
 
-    private SuperStructure() {
+    public SuperStructure(Arm arm) {
+        mArm = arm;
         addState("Home", new HomeState());
         addState("Ball Getter", new BallGetterState());
         addState("Cargo Ship", new CargoShipState());
@@ -118,7 +119,7 @@ public class SuperStructure extends StateSubsystem<SuperStructureState> {
 
     public static SuperStructure getInstance() {
         if (mInstance == null)
-            mInstance = new SuperStructure();
+            mInstance = new SuperStructure(Arm.getInstance());
         return mInstance;
     }
 
