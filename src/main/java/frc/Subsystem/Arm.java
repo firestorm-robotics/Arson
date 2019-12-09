@@ -16,9 +16,14 @@ public class Arm extends TalonServoSubsystem {
     private int mDemandPos;
     private int mActualPos;
 
-    private Arm(int mServoMotorID, int mSlaveMotorID) {
-        super(mServoMotorID);
-        mSlaveMotor = new TalonSRX(mSlaveMotorID);
+    /**
+     * DO NOT USE UNLESS FOR UNIT TESTING
+     * @param servoMotor the motor encoder is attached to
+     * @param slaveMotor the motor the folllows the servo motor
+     */
+    public Arm(TalonSRX servoMotor, TalonSRX slaveMotor) {
+        super(servoMotor);
+        mSlaveMotor = slaveMotor;
         mServoMotor.setInverted(InvertType.InvertMotorOutput);
         mSlaveMotor.setInverted(InvertType.OpposeMaster);
         mSlaveMotor.follow(mServoMotor);
@@ -58,6 +63,10 @@ public class Arm extends TalonServoSubsystem {
         mDemandPos = demandPos;
     }
 
+    /**
+     * getter for the actual positon of the arm 
+     * @return position in encoder ticks
+     */
     public int getPosition() {
         return mActualPos;
     }
@@ -107,7 +116,7 @@ public class Arm extends TalonServoSubsystem {
 
     public static Arm getInstance() {
         if (mInstance == null)
-            mInstance = new Arm(RobotMap.ARM_MASTER_ID, RobotMap.ARM_SLAVE_ID);
+            mInstance = new Arm(new TalonSRX(RobotMap.ARM_MASTER_ID),new TalonSRX(RobotMap.ARM_SLAVE_ID));
         return mInstance;
     }
 }

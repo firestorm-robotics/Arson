@@ -4,14 +4,15 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+
 /**
  * 
  */
 public abstract class TalonServoSubsystem implements ISubsystem {
     protected TalonSRX mServoMotor;
 
-    protected TalonServoSubsystem(int mServoMotorID) {
-        mServoMotor = new TalonSRX(mServoMotorID);
+    protected TalonServoSubsystem(TalonSRX servoMotor) {
+        mServoMotor = servoMotor;
         mServoMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     }
 
