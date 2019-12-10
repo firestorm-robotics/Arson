@@ -46,8 +46,13 @@ public class ControlBoard implements IButtonControlBoard, IJoystickControlBoard 
         return mJoystick.getRawButtonPressed(5);
     }
 
+    @Override
+    public boolean runIntake() {
+    	return mJoystick.getRawButton(1);
+    }
     public static ControlBoard getInstance() {
         return mInstance;
     }
+
 
 }

@@ -18,13 +18,15 @@ import frc.states.SuperStructureStates.SuperStructureState;
 public class SuperStructure extends StateSubsystem<SuperStructureState> {
 
     private Arm mArm;
+    private Intake mIntake;
     private static SuperStructure mInstance;
     private PeriodicIO mPeriodicIO = new PeriodicIO();
     private boolean mArmAtPosition = false;
     private boolean mWriteAtPosition = false;
 
-    public SuperStructure(Arm arm) {
+    public SuperStructure(Arm arm,Intake intake) {
         mArm = arm;
+	mIntake = intake;
         addState("Home", new HomeState());
         addState("Ball Getter", new BallGetterState());
         addState("Cargo Ship", new CargoShipState());
@@ -82,6 +84,7 @@ public class SuperStructure extends StateSubsystem<SuperStructureState> {
                         SmartDashboard.putBoolean("At Position", mArmAtPosition);
                     }
 
+		    //arm input
                     if (ControlBoard.getInstance().setHome()) {
                         setState("Home");
                     } else if (ControlBoard.getInstance().setBallGetter()) {
@@ -95,6 +98,18 @@ public class SuperStructure extends StateSubsystem<SuperStructureState> {
                     } else if (ControlBoard.getInstance().setHighGoal()) {
                         setState("High Goal");
                     }
+
+		    // intake inputs
+		    if (ControlBoard.getInstance().runIntake()) {
+		       if (mCurrentState.name() != "Home" || mCurrentState.name() != "Ball Getter") {
+		           mIntake.runIntake(1);
+		       } else if (mCurrentState.name() == "Ball Getter") {
+		           mIntake.runIntake(-1);
+		       } else if (mCurrentState.name() == "Home") {
+		          mIntake.stopIntake();
+		       }
+		    
+		    }
 
                     // update values
 
@@ -119,7 +134,7 @@ public class SuperStructure extends StateSubsystem<SuperStructureState> {
 
     public static SuperStructure getInstance() {
         if (mInstance == null)
-            mInstance = new SuperStructure(Arm.getInstance());
+            mInstance = new SuperStructure(Arm.getInstance(),Intake.getIntance());
         return mInstance;
     }
 

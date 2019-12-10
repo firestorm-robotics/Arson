@@ -13,4 +13,6 @@ public interface IButtonControlBoard {
     public boolean setMidGoal();
 
     public boolean setHighGoal();
+
+    public boolean runIntake();
 }
