@@ -25,12 +25,12 @@ public class Wrist extends TalonServoSubsystem {
         mServoMotor.setInverted(InvertType.InvertMotorOutput);
 
         // set up motion magic
-        mServoMotor.configMotionCruiseVelocity(Constants.ARM_VELOCITY);
-        mServoMotor.configMotionAcceleration(Constants.ARM_ACCEL);
+        mServoMotor.configMotionCruiseVelocity(Constants.WRIST_VELOCITY);
+        mServoMotor.configMotionAcceleration(Constants.WRIST_ACCEL);
 
-        mServoMotor.config_kF(0, Constants.ARM_KF, 100);
-        mServoMotor.config_kP(0, Constants.ARM_KP, 100);
-        mServoMotor.config_kD(0, Constants.ARM_KD, 100);
+        mServoMotor.config_kF(0, Constants.WRIST_KF, 100);
+        mServoMotor.config_kP(0, Constants.WRIST_KP, 100);
+        mServoMotor.config_kD(0, Constants.WRIST_KD, 100);
 
     }
 
