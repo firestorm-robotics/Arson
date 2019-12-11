@@ -11,7 +11,7 @@ import fireLib.subsystem.TalonServoSubsystem;
 import frc.robot.*;
 public class Wrist extends TalonServoSubsystem {
 
-    private static Arm mInstance;
+    private static Wrist mInstance;
     private int mDemandPos;
     private int mActualPos;
 
@@ -70,8 +70,8 @@ public class Wrist extends TalonServoSubsystem {
     @Override
     public void updateSmartDashboard() {
         // TODO Auto-generated method stub
-        SmartDashboard.putNumber("Arm Position", mActualPos);
-        SmartDashboard.putNumber("Desired Arm Position", mDemandPos);
+        SmartDashboard.putNumber("Wrist Position", mActualPos);
+        SmartDashboard.putNumber("Desired Wrist Position", mDemandPos);
 
     }
 
