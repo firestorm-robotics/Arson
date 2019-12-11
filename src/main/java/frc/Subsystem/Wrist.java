@@ -110,9 +110,9 @@ public class Wrist extends TalonServoSubsystem {
         });
     }
 
-    public static Arm getInstance() {
+    public static Wrist getInstance() {
         if (mInstance == null)
-            mInstance = new Arm(new TalonSRX(RobotMap.WRIST_ID));
+            mInstance = new Wrist(new TalonSRX(RobotMap.WRIST_ID));
         return mInstance;
     }
 }
