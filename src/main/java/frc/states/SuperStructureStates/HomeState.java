@@ -8,7 +8,7 @@ public class HomeState extends SuperStructureState {
     }
 
     @Override
-    public double wristPosition() {
+    public int wristPosition() {
         return 0;
     }
 

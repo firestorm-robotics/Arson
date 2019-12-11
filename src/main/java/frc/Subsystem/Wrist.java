@@ -18,12 +18,9 @@ public class Wrist extends TalonServoSubsystem {
     /**
      * DO NOT USE UNLESS FOR UNIT TESTING
      * @param servoMotor the motor encoder is attached to
-     * @param slaveMotor the motor the folllows the servo motor
      */
     public Wrist(TalonSRX servoMotor) {
         super(servoMotor);
-        mServoMotor.setInverted(InvertType.InvertMotorOutput);
-
         // set up motion magic
         mServoMotor.configMotionCruiseVelocity(Constants.WRIST_VELOCITY);
         mServoMotor.configMotionAcceleration(Constants.WRIST_ACCEL);
