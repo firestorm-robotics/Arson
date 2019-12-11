@@ -8,7 +8,7 @@ public class CargoShipState extends SuperStructureState {
     }
 
     @Override
-    public double wristPosition() {
+    public int wristPosition() {
         return 5900;
     }
 

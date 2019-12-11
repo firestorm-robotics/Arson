@@ -19,14 +19,16 @@ public class SuperStructure extends StateSubsystem<SuperStructureState> {
 
     private Arm mArm;
     private Intake mIntake;
+    private Wrist mWrist;
     private static SuperStructure mInstance;
     private PeriodicIO mPeriodicIO = new PeriodicIO();
     private boolean mArmAtPosition = false;
     private boolean mWriteAtPosition = false;
 
-    public SuperStructure(Arm arm,Intake intake) {
+    public SuperStructure(Arm arm,Intake intake, Wrist wrist) {
         mArm = arm;
-	mIntake = intake;
+        mIntake = intake;
+        mWrist = wrist;
         addState("Home", new HomeState());
         addState("Ball Getter", new BallGetterState());
         addState("Cargo Ship", new CargoShipState());
@@ -48,8 +50,10 @@ public class SuperStructure extends StateSubsystem<SuperStructureState> {
     @Override
     public void pollTelemetry() {
         // TODO Auto-generated method stub
-        mPeriodicIO.currentArmPos = mArm.getPosition();
-        mPeriodicIO.desiredArmPos = mDesiredState.armPosition();
+        mPeriodicIO.currentArmPos   = mArm.getPosition();
+        mPeriodicIO.desiredArmPos   = mDesiredState.armPosition();
+        mPeriodicIO.currentWristPos = mWrist.getPosition();
+        mPeriodicIO.desiredWristPos = mDesiredState.wristPosition();
 
     }
 
@@ -128,13 +132,14 @@ public class SuperStructure extends StateSubsystem<SuperStructureState> {
     @Override
     protected void update() {
         // TODO Auto-generated method stub
-            mArm.setDemandPosition(mDesiredState.armPosition());
+            mArm.setDemandPosition(mPeriodicIO.desiredArmPos);
+            mWrist.setDemandPosition(mPeriodicIO.desiredWristPos);
 
     }
 
     public static SuperStructure getInstance() {
         if (mInstance == null)
-            mInstance = new SuperStructure(Arm.getInstance(),Intake.getIntance());
+            mInstance = new SuperStructure(Arm.getInstance(),Intake.getIntance(),Wrist.getInstance());
         return mInstance;
     }
 
