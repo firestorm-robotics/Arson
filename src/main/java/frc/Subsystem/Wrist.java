@@ -11,7 +11,6 @@ import fireLib.subsystem.TalonServoSubsystem;
 import frc.robot.*;
 public class Wrist extends TalonServoSubsystem {
 
-    private TalonSRX mSlaveMotor;
     private static Arm mInstance;
     private int mDemandPos;
     private int mActualPos;
@@ -21,12 +20,9 @@ public class Wrist extends TalonServoSubsystem {
      * @param servoMotor the motor encoder is attached to
      * @param slaveMotor the motor the folllows the servo motor
      */
-    public Wrist(TalonSRX servoMotor, TalonSRX slaveMotor) {
+    public Wrist(TalonSRX servoMotor) {
         super(servoMotor);
-        mSlaveMotor = slaveMotor;
         mServoMotor.setInverted(InvertType.InvertMotorOutput);
-        mSlaveMotor.setInverted(InvertType.OpposeMaster);
-        mSlaveMotor.follow(mServoMotor);
 
         // set up motion magic
         mServoMotor.configMotionCruiseVelocity(Constants.ARM_VELOCITY);
@@ -47,7 +43,7 @@ public class Wrist extends TalonServoSubsystem {
 
     /**
      * getter for the demanded position of the arm
-     * 
+     *
      * @return the mDemandPos
      */
     public int getDemandPosition() {
@@ -56,7 +52,7 @@ public class Wrist extends TalonServoSubsystem {
 
     /**
      * setter for demanded position of the arm
-     * 
+     *
      * @param demandPos the demandPos to set
      */
     public void setDemandPosition(int demandPos) {
@@ -64,7 +60,7 @@ public class Wrist extends TalonServoSubsystem {
     }
 
     /**
-     * getter for the actual positon of the arm 
+     * getter for the actual positon of the arm
      * @return position in encoder ticks
      */
     public int getPosition() {
@@ -116,7 +112,7 @@ public class Wrist extends TalonServoSubsystem {
 
     public static Arm getInstance() {
         if (mInstance == null)
-            mInstance = new Arm(new TalonSRX(RobotMap.WRIST_ID),new TalonSRX(RobotMap.ARM_SLAVE_ID));
+            mInstance = new Arm(new TalonSRX(RobotMap.WRIST_ID));
         return mInstance;
     }
 }
